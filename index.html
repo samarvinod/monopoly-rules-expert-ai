@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Monopoly Rules Chatbot</title>
+  <style>
+    body { font-family: sans-serif; background: #f7f7f7; margin: 0; padding: 0; }
+    .container { max-width: 600px; margin: 40px auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #0001; padding: 32px; }
+    h1 { text-align: center; }
+    input, button { font-size: 16px; padding: 10px; border-radius: 6px; border: 1px solid #ccc; }
+    input { width: 80%; margin-right: 8px; }
+    button { background: #007bff; color: #fff; border: none; cursor: pointer; }
+    button:disabled { background: #aaa; }
+    .answer-box { margin-top: 24px; background: #f9f9f9; border-radius: 8px; padding: 16px; min-height: 80px; }
+    .label { font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Monopoly Rules Chatbot</h1>
+    <div>
+      <input id="question" type="text" placeholder="Ask a Monopoly rules question..." />
+      <button id="askBtn" onclick="askQuestion()">Ask</button>
+    </div>
+    <div class="answer-box" id="answer"></div>
+  </div>
+  <script>
+    async function askQuestion() {
+      const questionInput = document.getElementById('question');
+      const answerBox = document.getElementById('answer');
+      const askBtn = document.getElementById('askBtn');
+      const question = questionInput.value.trim();
+      if (!question) return;
+      askBtn.disabled = true;
+      answerBox.innerHTML = 'Thinking...';
+      try {
+        const res = await fetch('http://localhost:8000/ask', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ question })
+        });
+        if (!res.ok) throw new Error('Backend error');
+        const data = await res.json();
+        answerBox.innerHTML = `<span class="label">Answer:</span><br>${data.answer}`;
+      } catch (e) {
+        answerBox.innerHTML = 'Error: Could not reach backend.';
+      }
+      askBtn.disabled = false;
+    }
+    document.getElementById('question').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') askQuestion();
+    });
+  </script>
+</body>
+</html> 
