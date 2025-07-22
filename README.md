@@ -19,7 +19,6 @@ A Retrieval-Augmented Generation (RAG) chatbot that answers Monopoly rules quest
 - **Frontend:** `index.html` (HTML/CSS/JS)
 - **Backend:** `backend_api.py` (FastAPI) + `monopoly_chat.py` (RAG logic)
 - **LLM:** Ollama running locally (e.g., Mistral)
-- **Embeddings:** Sentence Transformers (`all-MiniLM-L6-v2`)
 
 ---
 
