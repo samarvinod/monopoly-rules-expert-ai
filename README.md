@@ -27,7 +27,6 @@ A Retrieval-Augmented Generation (RAG) chatbot that answers Monopoly rules quest
 
 ### 1. Prerequisites
 - Python 3.8+
-- Node.js (for running a local web server, optional)
 - Ollama installed and running locally (https://ollama.ai)
 - MonopolyRulebook.pdf in the project directory
 
